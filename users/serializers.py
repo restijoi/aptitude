@@ -3,8 +3,7 @@ from itertools import islice
 
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework.authtoken.models import Token
 from users.models import UserTag
 
 class UserRegistrationSerializers(serializers.ModelSerializer):
@@ -46,14 +45,9 @@ class AuthTokenSerializer(serializers.Serializer):
         style={'input_type': 'password'}
     )
 
-    token = serializers.CharField(
-        allow_blank=True,
-        read_only=True
-    )
-
     class Meta(object):
         model = get_user_model()
-        fields = ('username', 'password','token')
+        fields = ('email', 'password')
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
@@ -62,14 +56,13 @@ class AuthTokenSerializer(serializers.Serializer):
     def validate(self, data):
         """ validate email credentials
         """
-        username, password = data.values()
-        
-        if not username or not password:
+        email, password = data.values()
+        if not email or not password:
             msg = _('Must include "email" and "password".')
             raise serializers.ValidationError(msg, code='authorization')
 
         self.user = authenticate(request=self.request,
-                                 username=username, password=password)
+                                 email=email, password=password)
 
         if not self.user:
             msg = _('Unable to log in with provided credentials.')
@@ -83,7 +76,8 @@ class AuthTokenSerializer(serializers.Serializer):
         if not self.user:
             msg = _('Unable to login with provided credentials.')
             raise serializers.ValidationError(msg, code="authorization")
-        
-        token = RefreshToken.for_user(self.user)
-
-        return 'Bearer '+str(token)
+        token, created = Token.objects.get_or_create(user=self.user)
+        if created:
+            token.delete()
+            token = Token.objects.create(user=self.user)
+        return (token)

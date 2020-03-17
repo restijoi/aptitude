@@ -57,7 +57,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}".title()
 
-
 class UserTag(models.Model):
     
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)

@@ -24,6 +24,8 @@ class UserLoginView(ObtainAuthToken):
         )
         serializer.is_valid(raise_exception=True)
         return response.Response({
-            'token': serializer.get_token(),
+            'token': serializer.get_token().key,
             'user_id': serializer.user.id
         }, status=200)
+
+

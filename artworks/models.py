@@ -7,8 +7,6 @@ class ArtWork(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
-
-
     is_free = models.BooleanField(default=True)
     price = models.DecimalField(blank=True, null=True,  max_digits=19, decimal_places=10)
 
@@ -27,7 +25,7 @@ class ArtWorkImage(models.Model):
 
 
 class ArtWorkTag(models.Model):
-    artwork = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    artwork = models.ForeignKey('ArtWork', on_delete=models.CASCADE)
     tag = models.CharField(max_length=255, null=True, blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True)

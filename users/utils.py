@@ -6,4 +6,4 @@ def user_media_path(obj, filename):
 
 def artwork_media_path(obj, filename):
     """set artwork media path"""
-    return f"artwork/{obj.id}/image/{filename}"
+    return f"artwork/{obj.artwork_id}/image/{filename}"
