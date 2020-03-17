@@ -1,0 +1,25 @@
+html,
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font: normal normal 100%/120% $Text-book;
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        &:focus {
+            box-shadow: none !important;
+
+        }
+    }
+}
+
+.blur {
+    background-color: #1a202c26;
+    backdrop-filter: blur(8.7px);
+}
+.gradient {
+    background-image: linear-gradient(to bottom, #833ab4, #dd97c7 48%, #ffbaa5);
+}
+
+
