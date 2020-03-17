@@ -1,0 +1,14 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   "build:tailwind": "tailwind build node_modules/tailwindcss/tailwind.css -o css/tailwind.css"
+  },
+  "author": "xavier cagmat",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^1.2.0"
+  }
+}

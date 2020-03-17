@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "avenir-book";
+  src: url(../fonts/avenir/AvenirLTStd-Book.otf);
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: "avenir-roman";
+  src: url(../../fonts/avenir/AvenirLTStd-Roman.otf);
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: "avenir-medium";
+  src: url(../fonts/avenir/AvenirLTStd-Medium.otf);
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  moz-osx-font-smoothing: grayscale;
+}
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font: normal normal 100%/120% "avenir-book";
+}
+html *,
+body * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html *:focus,
+body *:focus {
+  box-shadow: none !important;
+}
+
+.blur {
+  background-color: #1a202c26;
+  backdrop-filter: blur(8.7px);
+}
+
+.gradient {
+  background-image: linear-gradient(to bottom, #833ab4, #dd97c7 48%, #ffbaa5);
+}
+
+/*# sourceMappingURL=style.css.map */
