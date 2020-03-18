@@ -1,0 +1,9 @@
+*.pyc
+*.sqlite3
+*.DS_Store
+
+media/
+static/
+
+assets/node_modules/
+*node_modules/
