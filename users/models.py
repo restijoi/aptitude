@@ -7,21 +7,21 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class UserManager(BaseUserManager):
     """User Manager"""
-    def create_user(self, email, username, password=None, **kwargs):
+    def create_user(self, email, password=None, **kwargs):
         """create regular user"""
-        if not username:
-            raise ValueError("Username is required.")
+        if not email:
+            raise ValueError("Email is required.")
 
-        user = self.model(email= email, username=username, **kwargs)
+        user = self.model(email= email, **kwargs)
         user.is_active = True
         user.set_password(password)
         user.save()
 
         return user
     
-    def create_superuser(self, email,  username, password=None, **kwargs):
+    def create_superuser(self, email, password=None, **kwargs):
         """ create a super user"""
-        user = self.create_user(email, username, password, **kwargs)
+        user = self.create_user(email, password, **kwargs)
         user.is_active = True
         user.is_superuser = True
         user.is_staff = True
@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     description = models.TextField()
-    username = models.CharField(max_length=100, unique=True)
+    handle = models.CharField(max_length=100, unique=True)
     avatar = models.ImageField(upload_to=user_media_path, null=True, blank=True)
 
     is_superuser = models.BooleanField(default=False)
@@ -47,12 +47,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_updated = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ("username", "first_name", "last_name")
+    REQUIRED_FIELDS = ("first_name", "last_name")
 
     objects = UserManager()
 
     def __str__(self):
-        return f"{self.username}"
+        return f"{self.email}"
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}".title()

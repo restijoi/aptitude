@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from artworks.models import ArtWork, ArtWorkTag, ArtWorkImage
-from users.serializers import UserRegistrationSerializers
+from users.serializers import UserRegistrationSerializer
 
 class ArtWorkTagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,7 +14,7 @@ class ArtWorkImageSerializer(serializers.ModelSerializer):
         fields = ('image',)
 
 class ArtWorkSerializer(serializers.ModelSerializer):
-    owner = UserRegistrationSerializers(read_only=True)
+    owner = UserRegistrationSerializer(read_only=True)
     # image = ArtWorkImageSerializer(many=False, write_only=True, allow_null=True)
     image = serializers.ImageField(max_length=None, use_url=True, allow_empty_file=True, write_only=True, required=False)
     class Meta:

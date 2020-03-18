@@ -1,34 +1,50 @@
 import datetime
-from itertools import islice
 
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from users.models import UserTag
 
-class UserRegistrationSerializers(serializers.ModelSerializer):
-    tag = serializers.CharField(write_only=True)
+from .utils import generateHandle
+
+class UserTagSerializer(serializers.ModelSerializer):
+    owner = None
+    class Meta:
+        model = UserTag
+        fields = ('tag',)
+
+    def __init__(self, *args, **kwargs):
+        self.owner = kwargs.pop('owner', None)
+        return super(UserTagSerializer, self).__init__(*args, **kwargs)
+
+    def create(self, data):
+        self.Meta.model.objects.create(owner=self.owner ,**data)
+        return data
+
+
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    tag = UserTagSerializer(write_only=True, many=True)
 
     class Meta:
         model = get_user_model()
-        fields = ('id','email' ,'first_name', 'last_name', 'description', 'username', 'password','tag')
+        fields = ('email' ,'first_name', 'last_name', 'description', 'password','tag')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5,'style':{'input_type': 'password'}}}
-
-    def validate_username(self, value):
-        if get_user_model().objects.filter(username=value).exists():
-            raise serializers.ValidationError("Username Already Exist.")
-        return value
     
-    def create(self, validated_data):
-        email, f_name, l_name, description, username, password, tags = validated_data.values()
-        user = get_user_model().objects.create_user(email, username, password, first_name = f_name, last_name = l_name, description=description)
-        objs = (UserTag(tag=tag, owner=user) for tag in tags.split(','))
-        while True: #batch create
-            batch = list(islice(objs, 10))
-            if not batch:
-                break
-            UserTag.objects.bulk_create(batch, 10)
+    def validate(self, data):
+        handle = data.get('email').split('@')[0]
+        existingHandle = self.Meta.model.objects.filter(handle=handle)
+        generatedHandle = generateHandle(handle, existingHandle.count())
+        data['handle']  = generatedHandle
 
+        return data
+
+    def create(self, validated_data):
+        tag = validated_data.pop('tag')
+        validated_data['handle'] = validated_data.pop('handle')
+        user = get_user_model().objects.create_user(**validated_data)
+        serializer = UserTagSerializer(data=tag, owner=user , many=True)
+        if (serializer.is_valid()):
+            serializer.save()
         return user
 
 class AuthTokenSerializer(serializers.Serializer):

@@ -9,17 +9,17 @@ from users.models import UserTag
 class UserAdmin(DefaultUserConfig):
     model = get_user_model()
     readonly_fields = ('date_joined',)
-    ordering = ('username',)
+    ordering = ('email',)
 
     filter_horizontal = ('groups', 'user_permissions')
-    list_display = ('email', 'username', 'first_name', 'last_name', 'date_joined')
+    list_display = ('email', 'handle', 'first_name', 'last_name', 'date_joined')
 
     fieldsets = (
         (_('Credentials'), {
-            'fields': ('username', 'password')
+            'fields': ('email', 'password')
         }),
         (_('Personal info'), {
-            'fields': ('email', 'first_name', 'last_name', 'description', 'avatar',)
+            'fields': ('handle', 'first_name', 'last_name', 'description', 'avatar',)
         }),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser',
@@ -33,7 +33,7 @@ class UserAdmin(DefaultUserConfig):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2'),
+            'fields': ('email', 'password1', 'password2'),
         }),
     )
 
