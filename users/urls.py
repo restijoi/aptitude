@@ -4,7 +4,7 @@ from users.views import UserRegistrationView, UserLoginView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('register', UserRegistrationView, basename='register',)
+router.register('register', UserRegistrationView, basename='register')
 
 app_name = 'users'
 
