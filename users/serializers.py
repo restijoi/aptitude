@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, authenticate
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from users.models import UserTag
@@ -26,7 +27,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(required=False, write_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('avatar', 'email' ,'first_name', 'last_name', 'password', 'tag')
+        fields = ('email' ,'first_name', 'last_name', 'password', 'tag', 'avatar')
     
     def validate(self, data):
         handle, domain = data.get('email').split('@')
@@ -35,8 +36,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        tag = validated_data.pop('tag', None)        
-        user = super(UserRegistrationSerializer, self).create(validated_data)
+        tag = validated_data.pop('tag', None)   
+        user = get_user_model().objects.create_user(**validated_data)
         serializer = UserTagSerializer(data=tag, owner=user, many=True)
         if (serializer.is_valid()):
             serializer.save()
@@ -71,10 +72,8 @@ class AuthTokenSerializer(serializers.Serializer):
         if not email or not password:
             msg = _('Must include "email" and "password".')
             raise serializers.ValidationError(msg, code='authorization')
-
-        self.user = authenticate(request=self.request,
-                                 email=email, password=password)
-
+        self.user = authenticate(request=self.request, 
+                                email=email, password=password)
         if not self.user:
             msg = _('Unable to log in with provided credentials.')
             raise serializers.ValidationError(msg, code='authorization')

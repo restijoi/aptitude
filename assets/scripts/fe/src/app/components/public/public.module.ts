@@ -4,9 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UIRouterModule } from '@uirouter/angular';
 
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

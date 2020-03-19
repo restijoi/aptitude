@@ -6,6 +6,7 @@ from rest_framework.settings import api_settings
 from users.serializers import UserRegistrationSerializer, AuthTokenSerializer
 
 class UserRegistrationView(CreateAPIView):
+    authentication_classes = ()
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserRegistrationSerializer
 
