@@ -15,11 +15,12 @@ class ArtWorkImageSerializer(serializers.ModelSerializer):
 
 class ArtWorkSerializer(serializers.ModelSerializer):
     owner = UserRegistrationSerializer(read_only=True)
-    # image = ArtWorkImageSerializer(many=False, write_only=True, allow_null=True)
-    image = serializers.ImageField(max_length=None, use_url=True, allow_empty_file=True, write_only=True, required=False)
+    image = serializers.ImageField(max_length=None, use_url=True, 
+                                    allow_empty_file=True, write_only=True, 
+                                    required=False)
     class Meta:
         model = ArtWork
-        fields = ('title', 'description','image', 'is_free', 'price', 'owner' )
+        fields = ('title', 'description', 'image', 'is_free', 'price', 'owner' )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -37,7 +38,6 @@ class ArtWorkSerializer(serializers.ModelSerializer):
         )
         
         if image:
-    
             artWorkImageSerializer = ArtWorkImage.objects.create(
                 artwork=artWorkInstance,
                 image=image

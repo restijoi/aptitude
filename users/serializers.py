@@ -16,32 +16,27 @@ class UserTagSerializer(serializers.ModelSerializer):
         return super(UserTagSerializer, self).__init__(*args, **kwargs)
 
     def create(self, data):
-        self.Meta.model.objects.create(owner=self.owner ,**data)
-        return data
-
+        data.update({'owner':self.owner})
+        return super(UserTagSerializer, self).create(data)
+        
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     tag = UserTagSerializer(write_only=True, many=True, allow_null=True, required=False)
-
+    password = serializers.CharField(write_only=True, min_length=5, style={'input_type': 'password'})
+    avatar = serializers.ImageField(required=False, write_only=True)
     class Meta:
         model = get_user_model()
         fields = ('avatar', 'email' ,'first_name', 'last_name', 'password', 'tag')
-        extra_kwargs = {
-            'password': {'write_only': True, 'min_length': 5,'style':{'input_type': 'password'}},
-            'avatar':{'required':False, 'write_only':True}
-        }
     
     def validate(self, data):
-        handle = data.get('email').split('@')[0]
+        handle, domain = data.get('email').split('@')
         existing_handle = self.Meta.model.objects.filter(handle=handle)
-        generated_handle = generate_handle(handle, existing_handle.count())
-        data['handle']  = generated_handle
-
+        data.update({'handle': generate_handle(handle, existing_handle.count())})
         return data
 
     def create(self, validated_data):
-        tag = validated_data.pop('tag', None)
-        user = get_user_model().objects.create_user(**validated_data)
+        tag = validated_data.pop('tag', None)        
+        user = super(UserRegistrationSerializer, self).create(validated_data)
         serializer = UserTagSerializer(data=tag, owner=user, many=True)
         if (serializer.is_valid()):
             serializer.save()
@@ -67,7 +62,7 @@ class AuthTokenSerializer(serializers.Serializer):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
-        super(AuthTokenSerializer, self).__init__(*args, **kwargs)
+        return super(AuthTokenSerializer, self).__init__(*args, **kwargs)
 
     def validate(self, data):
         """ validate email credentials

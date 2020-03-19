@@ -59,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserTag(models.Model):
     
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     tag = models.CharField(max_length=255, null=True)
 
     date_created = models.DateTimeField(auto_now_add=True)
