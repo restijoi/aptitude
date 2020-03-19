@@ -40,7 +40,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         serializer = UserTagSerializer(data=tag, owner=user, many=True)
         if (serializer.is_valid()):
             serializer.save()
-        return validated_data
+        return user
 
 class AuthTokenSerializer(serializers.Serializer):
     user = None
