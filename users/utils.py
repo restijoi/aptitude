@@ -9,7 +9,7 @@ def artwork_media_path(obj, filename):
     return f"artwork/{obj.artwork_id}/image/{filename}"
 
 
-def generateHandle(handle, count = 0):
+def generate_handle(handle, count = 0):
     if (count):
         count += 1
         return handle + str(count) 
