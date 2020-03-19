@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from users.models import UserTag
 
-from .utils import generateHandle
+from .utils import generate_handle
 
 class UserTagSerializer(serializers.ModelSerializer):
     owner = None
@@ -25,21 +25,24 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('email' ,'first_name', 'last_name', 'password', 'tag')
-        extra_kwargs = {'password': {'write_only': True, 'min_length': 5,'style':{'input_type': 'password'}}}
+        fields = ('avatar', 'email' ,'first_name', 'last_name', 'password', 'tag')
+        extra_kwargs = {
+            'password': {'write_only': True, 'min_length': 5,'style':{'input_type': 'password'}},
+            'avatar':{'required':False, 'write_only':True}
+        }
     
     def validate(self, data):
         handle = data.get('email').split('@')[0]
-        existingHandle = self.Meta.model.objects.filter(handle=handle)
-        generatedHandle = generateHandle(handle, existingHandle.count())
-        data['handle']  = generatedHandle
+        existing_handle = self.Meta.model.objects.filter(handle=handle)
+        generated_handle = generate_handle(handle, existing_handle.count())
+        data['handle']  = generated_handle
 
         return data
 
     def create(self, validated_data):
         tag = validated_data.pop('tag', None)
         user = get_user_model().objects.create_user(**validated_data)
-        serializer = UserTagSerializer(data=tag, owner=user , many=True)
+        serializer = UserTagSerializer(data=tag, owner=user, many=True)
         if (serializer.is_valid()):
             serializer.save()
         return validated_data

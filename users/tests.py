@@ -46,3 +46,17 @@ class UserApiTests(TestCase):
         user = get_user_model().objects.get(**res.data)
         self.assertTrue(user.check_password(payload['password']))
         self.assertNotIn('password', res.data)
+    
+    def test_create_valid_user_without_tag_success(self):
+        """Test creating user with valid payload is successful"""
+        payload = {
+            "email": "test1@gmail.com",
+            "first_name": "test",
+            "last_name": "user",
+            "password": "admin1234"
+        }
+        res = self.client.post(REGISTER_USER, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        user = get_user_model().objects.get(**res.data)
+        self.assertTrue(user.check_password(payload['password']))
+        self.assertNotIn('password', res.data)
