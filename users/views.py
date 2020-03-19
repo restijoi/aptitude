@@ -1,10 +1,11 @@
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework import viewsets, mixins, views, permissions, response, generics
+from rest_framework import permissions, response, status
+from rest_framework.generics import CreateAPIView
 from rest_framework.settings import api_settings
 
 from users.serializers import UserRegistrationSerializer, AuthTokenSerializer
 
-class UserRegistrationView(viewsets.GenericViewSet, mixins.CreateModelMixin):
+class UserRegistrationView(CreateAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserRegistrationSerializer
 
@@ -12,10 +13,11 @@ class UserRegistrationView(viewsets.GenericViewSet, mixins.CreateModelMixin):
         serializer = self.serializer_class(
             data=request.data
         )
+        
         if (serializer.is_valid(raise_exception=True)):
             serializer.save()
-            return response.Response(serializer.data, status=201)
-        return response.Response(serializer.errors, status=400)
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+        return response.Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 class UserLoginView(ObtainAuthToken):
     authentication_classes = ()

@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
@@ -23,11 +21,11 @@ class UserTagSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    tag = UserTagSerializer(write_only=True, many=True)
+    tag = UserTagSerializer(write_only=True, many=True, allow_null=True, required=False)
 
     class Meta:
         model = get_user_model()
-        fields = ('email' ,'first_name', 'last_name', 'description', 'password','tag')
+        fields = ('email' ,'first_name', 'last_name', 'password', 'tag')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5,'style':{'input_type': 'password'}}}
     
     def validate(self, data):
@@ -39,13 +37,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        tag = validated_data.pop('tag')
-        validated_data['handle'] = validated_data.pop('handle')
+        tag = validated_data.pop('tag', None)
         user = get_user_model().objects.create_user(**validated_data)
         serializer = UserTagSerializer(data=tag, owner=user , many=True)
         if (serializer.is_valid()):
             serializer.save()
-        return user
+        return validated_data
 
 class AuthTokenSerializer(serializers.Serializer):
     user = None
