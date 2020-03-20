@@ -36,7 +36,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        tag = validated_data.pop('tag', None)   
+        tag = validated_data.pop('tag', [])   
         user = get_user_model().objects.create_user(**validated_data)
         serializer = UserTagSerializer(data=tag, owner=user, many=True)
         serializer.is_valid(raise_exception=True)

@@ -20,9 +20,13 @@ class ArtWorkImage(models.Model):
     artwork = models.ForeignKey('ArtWork', on_delete=models.CASCADE)
     image = models.ImageField(upload_to=artwork_media_path, null=True, blank=True)
     is_featured = models.BooleanField(default=False)
-    
+
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.image.url
+    
 
 
 class ArtWorkTag(models.Model):

@@ -61,6 +61,7 @@ class UserApiTests(TestCase):
             "last_name": "user",
             "password": "admin1234"
         }
+
         login_payload = {
             "email": "test1@gmail.com",
             "password": "admin1234"
@@ -68,8 +69,5 @@ class UserApiTests(TestCase):
 
         register = self.client.post(REGISTER_USER, payload)
         self.assertEqual(register.status_code, status.HTTP_201_CREATED)
-
-        login = self.client.post(LOGIN_USER, **login_payload)
-        self.assertEqual(register.status_code, status.HTTP_201_CREATED)
-
-        
+        login = self.client.post(LOGIN_USER, login_payload)
+        self.assertEqual(login.status_code, status.HTTP_201_CREATED)

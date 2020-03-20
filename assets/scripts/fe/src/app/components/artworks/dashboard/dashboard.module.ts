@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UIRouterModule } from '@uirouter/angular';
 
+import { HomeComponent } from './home/home.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, CreateComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    UIRouterModule
   ]
 })
 export class DashboardModule { }
