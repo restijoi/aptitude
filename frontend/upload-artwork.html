@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aptitude</title>
+
+  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/tailwind.css">
+  <link rel="stylesheet" type="text/css" href="assets/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+</head>
+<body>
+  <header class="">
+    <div class="container justify-between flex my-6 mx-auto px-5 lg:px-20 xl:px-0">
+      <div class="flex items-center w-3/6">
+        <div class="text-4xl m-2 font-black">Aptitude</div>
+        <input type="text" name="" id="" class="bg-gray-200 w-4/5 h-12 ml-4 px-5 rounded-md text-xs placeholder-gray-500 focus:outline-none" placeholder="Search for illustrations, designs, and artworks">
+      </div>
+      <ul class="flex items-center">
+        <li class="ml-4 text-base font-semibold">Create</li>
+        <li class="ml-4 text-base font-semibold">Collections</li>
+        <li class="ml-4 text-base font-semibold">Explore</li>
+      </ul>
+    </div>
+  </header>
+  <main class="container mx-auto mt-10 px-5 lg:px-20 xl:px-0">
+    <aside class="w-1/5 mr-5 fixed  ">
+      <div>
+        <h4 class="text-primary text-lg font-medium">Hello,</h4>
+        <h1 class="text-4xl font-black leading-normal">Johanna</h1>
+      </div>
+      <ul class="my-16">
+        <!-- currently using free version of fontawesome icons -->
+        <li class="mb-4 text-xl text-secondary font-medium"><i class="fas text-base fa-home mr-5"></i>Home</li>
+        <li class="mb-4 text-xl text-secondary font-medium"><i class="fas text-base fa-user mr-5"></i>Profile</li>
+        <li class="mb-4 text-xl text-secondary font-medium"><i class="fas text-base fa-envelope mr-5"></i>inbox</li>
+        <li class="mb-4 text-xl text-secondary font-medium"><i class="fas text-base fa-check mr-5"></i>Verify</li>
+        <l1 class="mb-4 text-xl text-secondary font-medium"><i class="fas text-base fa-tag mr-5"></i>Market</l1>
+      </ul>
+      <div class="mt-12">
+        <label class="text-primary text-lg font-semibold">Works</label>
+        <h4 class="text-secondary text-xl my-2 font-medium">Upload works</h4>
+      </div>
+      <div class="mt-12">
+        <label class="text-primary text-lg font-semibold">Groups</label>
+        <h4 class="text-secondary text-xl my-2 font-medium">The Creatives</h4>
+      </div>
+    </aside>
+    <section class="ml-64 pl-16 mb-20">
+      <h1 class="text-4xl pt-10 font-semibold">Upload <span class="text-primary font-black">artwork</span></h1>
+      <div class="w-full h-64 rounded-lg mt-10 bg-gray-200"></div>     
+      <div class="my-5">
+        <label for="first-name" class="text-lg font-medium">Thumbnails</label>
+        <div class="flex flex-wrap mt-2">
+          <div class=" w-48 h-40 bg-gray-200 rounded-lg mr-4"></div>
+          <div class=" w-48 h-40 bg-gray-200 rounded-lg mr-4"></div>
+          <div class=" w-48 h-40 bg-gray-200 rounded-lg mr-4"></div>
+        </div>
+      </div>
+      <div class="mt-10">
+        <div class="mt-5 text-left">
+          <label for="first-name" class="text-lg font-medium">Title</label>
+          <div class="mt-2"><input type="email" class="w-full xl:w-2/4 bg-gray-100 h-12 border border-secondary focus:outline-none rounded-sm p-4 text-gray-700"></div>
+        </div>
+        <div class="mt-5 text-left">
+          <label for="first-name" class="text-lg font-medium">Tags</label>
+          <div class="mt-2"><input type="email" class="w-full xl:w-2/4 bg-gray-100 h-12 border border-secondary focus:outline-none rounded-sm p-4 text-gray-700"></div>
+        </div>
+        <div class="mt-5 text-left">
+          <label for="first-name" class="text-lg font-medium">Description</label>
+          <div class="mt-2"><textarea type="email" class="w-full xl:w-2/4 h-56 bg-gray-100 h-12 border border-secondary focus:outline-none rounded-sm p-4 text-gray-700"></textarea></div>
+        </div>
+        <div class="mt-5 flex items-center">
+          <label for="first-name" class="text-lg font-medium mr-2">Price:</label>
+          <div class="mt-2"><input type="email" class="w-full  h-10 text-primary font-semibold pb-1 text-lg focus:outline-none rounded-sm text-gray-700" value="$20.0" readonly></div>
+          <input type="checkbox" id="free" name="free" class="ml-5 mr-2">
+          <span>Free</span>
+        </div>
+        <div class="mt-2 text-left">
+          <label for="first-name" class="text-base font-medium">Enter amount</label>
+          <div class="mt-2"><input type="number" class="w-full xl:w-2/4 bg-gray-100 border border-secondary focus:outline-none rounded-sm p-4 text-gray-700"></div>
+        </div>
+        <div class="mt-10">
+          <button class="py-4 px-12 text-white rounded-sm bg-primary text-xl">Upload </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

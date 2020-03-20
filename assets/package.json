@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:tailwind": "tailwind build node_modules/tailwindcss/tailwind.css -o css/tailwind.css"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:tailwind": "tailwind build css/tailwind.css -o dist/css/tailwind.css"
   },
-  "author": "xavier cagmat",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
     "tailwindcss": "^1.2.0"
   }
 }
