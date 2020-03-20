@@ -14,11 +14,9 @@ class UserRegistrationView(CreateAPIView):
         serializer = self.serializer_class(
             data=request.data
         )
-        
-        if (serializer.is_valid(raise_exception=True)):
-            serializer.save()
-            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
-        return response.Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return response.Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class UserLoginView(ObtainAuthToken):
     authentication_classes = ()
