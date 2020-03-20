@@ -10,4 +10,4 @@ def artwork_media_path(obj, filename):
 
 
 def generate_handle(handle, count = 0):
-    return f"{handle} {(lambda x: x+1 if x else '')(count)}"
+    return f"{handle}{(lambda x: x+1 if x else '')(count)}"
