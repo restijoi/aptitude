@@ -7,3 +7,6 @@ static/
 
 assets/node_modules/
 *node_modules/
+
+assets/dist
+frontend/assets/css
