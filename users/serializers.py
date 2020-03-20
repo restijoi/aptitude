@@ -39,8 +39,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         tag = validated_data.pop('tag', None)   
         user = get_user_model().objects.create_user(**validated_data)
         serializer = UserTagSerializer(data=tag, owner=user, many=True)
-        if (serializer.is_valid()):
-            serializer.save()
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return user
 
 class AuthTokenSerializer(serializers.Serializer):
