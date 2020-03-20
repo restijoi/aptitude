@@ -1,0 +1,30 @@
+<form [formGroup]="form.artworkForm" (ngSubmit)="onSubmit(form.artworkForm)">
+<div>
+      <label>Featured Image:</label>
+      <input formControlName="featured_image" type="file" >
+  </div>
+  <div>
+      <label>Title:</label>
+      <input formControlName="title" type="text">
+  </div>
+  <div>
+      <label>description:</label>
+      <textarea formControlName="description" type="text"></textarea>
+  </div>
+  <div>
+      <label>Thumbnails:</label>
+      <input formControlName="image" type="file" multiple (change)="onThumbNailsChange($event)" >
+  </div>
+  <div>
+    <label>Price</label>
+  </div>
+  <div>
+      <label>Free:</label>
+      <input formControlName="is_free" type="checkbox">
+  </div>
+  <div>
+      <label>Enter Amount:</label>
+      <input formControlName="price" type="text">
+  </div>
+  <button type="submit" class="btn btn-primary">Upload</button>
+</form>
