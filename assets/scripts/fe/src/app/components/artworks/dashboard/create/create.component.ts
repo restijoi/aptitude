@@ -4,7 +4,7 @@ import { StateService } from '@uirouter/angular';
 import { ArtworkService } from '../../../../commons/services/artwork.service';
 import { ArtWork } from '../../../../commons/models/artwork.models';
 import { ArtWorkForm } from '../../../../commons/forms/artwork.forms';
-import { read } from 'fs';
+
 
 @Component({
   selector: 'app-create',
