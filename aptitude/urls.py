@@ -22,12 +22,11 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/artworks/', include('artworks.urls')),  
 ]
 
 urlpatterns += [
   path('api/users/', include('users.urls')),
-  
+  path('api/artworks/', include('artworks.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [

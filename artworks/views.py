@@ -5,7 +5,7 @@ from .models import ArtWork
 
 class ArtWorkViewSets(generics.ListCreateAPIView):
     authentication_classes = (authentication.TokenAuthentication,)
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser)
     serializer_class = ArtWorkSerializer
     queryset = ArtWork.objects.all()
