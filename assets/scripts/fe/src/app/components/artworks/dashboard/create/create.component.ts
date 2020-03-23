@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService } from '@uirouter/angular';
 
+import { ArtworkService } from '../../../../commons/services/artwork.service';
 import { ArtWork } from '../../../../commons/models/artwork.models';
 import { ArtWorkForm } from '../../../../commons/forms/artwork.forms';
+import { read } from 'fs';
 
 @Component({
   selector: 'app-create',
@@ -11,44 +13,49 @@ import { ArtWorkForm } from '../../../../commons/forms/artwork.forms';
 })
 export class CreateComponent implements OnInit {
   public form: ArtWorkForm;
-  private images: Array<any> = [];
+  private formData: FormData = new FormData();
+
   constructor(
-    private state: StateService
+    private state: StateService,
+    private artwork: ArtworkService
   ) { }
 
   ngOnInit(): void {
     this.form = new ArtWorkForm(new ArtWork());
   }
 
-  onSubmit({value, valid}: {value: ArtWork, valid: boolean}): void {
+  onSubmit({ value, valid }: { value: ArtWork, valid: boolean }): void {
     if (valid) {
-      // send the data to the backend server
-      // this.auth.login(value)
-      //   .then((resp: any) => {
-      //     // redirect to the dashboard
-      //     this.state.go('home');
-      //   })
-      //   .catch((err: any) => {
-      //     this.form.errors = err;
-      //   })
-      // ;
+      this.artwork.create(this.formData)
+        .then ((resp: any) => {
+          console.log( resp );
+        })
+        .catch( (error: any ) => {
+          console.log( error );
+        })
+      ;
     }
   }
 
-  onThumbNailsChange(event): void {
-    const filesAmount = event.target.files.length;
-    console.log(event.target.result);
-    for (let i = 0; i < filesAmount; i++) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        console.log(event.target.result);
-        this.images.push(event.target.result);
-      };
-      reader.readAsDataURL(event.target.files[i]);
+  onFormChange(event): void {
+    if (!!event.target.id) {
+      const id = event.target.id;
+      const value = this.form.artworkForm.get(id).value;
+      this.formData.append(id, value);
     }
-    this.form.artworkForm.patchValue({
-      image: this.images
-    });
   }
+
+  onFeaturedImageChange(event): void {
+    const featuredImage = event.target.files;
+    this.formData.append('featured_image', featuredImage[0]);
+  }
+
+  onThumbNailsChange(event): void {
+    const thumbnails = event.target.files;
+    for (const file of thumbnails) {
+      this.formData.append('image', file);
+    }
+  }
+
 
 }
