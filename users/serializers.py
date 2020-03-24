@@ -19,20 +19,41 @@ class UserTagSerializer(serializers.ModelSerializer):
     def create(self, data):
         data.update({'owner':self.owner})
         return super(UserTagSerializer, self).create(data)
-        
 
-class UserRegistrationSerializer(serializers.ModelSerializer):
+class BaseUserSerializer(serializers.ModelSerializer):
+    """ user serializer
+    """
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'avatar',
+            'tag'
+        )
+
+class UserRegistrationSerializer(BaseUserSerializer):
     tag = UserTagSerializer(write_only=True, many=True, allow_null=True, required=False)
     password = serializers.CharField(write_only=True, min_length=5, style={'input_type': 'password'})
+    confirm_password = serializers.CharField(write_only=True,min_length=5, style={'input_type': 'password'})
     avatar = serializers.ImageField(required=False, write_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('email' ,'first_name', 'last_name', 'password', 'tag', 'avatar')
+        fields = ('email' ,'first_name', 'last_name', 'password', 'confirm_password', 'tag', 'avatar')
     
     def validate(self, data):
         handle, domain = data.get('email').split('@')
         existing_handle = self.Meta.model.objects.filter(handle=handle)
         data.update({'handle': generate_handle(handle, existing_handle.count())})
+
+        if not data.get('password') or not data.get('confirm_password'):
+            raise serializers.ValidationError("Please enter a password and "
+                "confirm it.")
+
+        if data.get('password') != data.get('confirm_password'):
+            raise serializers.ValidationError("passwords don't match.")
+
         return data
 
     def create(self, validated_data):
@@ -41,7 +62,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         serializer = UserTagSerializer(data=tag, owner=user, many=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return user
+        return validated_data
 
 class AuthTokenSerializer(serializers.Serializer):
     user = None
@@ -91,3 +112,27 @@ class AuthTokenSerializer(serializers.Serializer):
             token.delete()
             token = Token.objects.create(user=self.user)
         return (token)
+
+
+class UserSerializer(BaseUserSerializer):
+    """ user serializer
+    """
+    tag = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'id',
+            'email',
+            'first_name',
+            'last_name',
+            'avatar',
+            'tag'
+        )
+
+    def get_tag(self, instance):
+        return UserTagSerializer(
+            UserTagSerializer.Meta.model.objects.filter(owner=instance),
+            many=True
+        ).data
+

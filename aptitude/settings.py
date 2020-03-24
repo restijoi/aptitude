@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'users',
-    'artworks'
+    'artworks',
+    'livestream'
 ]
 
 MIDDLEWARE = [

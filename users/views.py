@@ -1,9 +1,11 @@
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework import permissions, response, status
+from rest_framework import permissions, response, status, authentication
+from rest_framework.viewsets import ViewSet
 from rest_framework.generics import CreateAPIView
 from rest_framework.settings import api_settings
+from rest_framework.response import Response
 
-from users.serializers import UserRegistrationSerializer, AuthTokenSerializer
+from users.serializers import UserRegistrationSerializer, AuthTokenSerializer, UserSerializer
 
 class UserRegistrationView(CreateAPIView):
     authentication_classes = ()
@@ -37,5 +39,15 @@ class UserLoginView(ObtainAuthToken):
             'token': serializer.get_token().key,
             'user_id': serializer.user.id
         }, status=201)
+
+class AuthUser(ViewSet):
+    """ auth user endpoint
+    """
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
+    def get(self, request):
+        serializer = self.serializer_class(request.user)
+        return Response(serializer.data, status=200)
 
 

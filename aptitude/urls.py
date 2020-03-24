@@ -27,6 +27,7 @@ urlpatterns = [
 urlpatterns += [
   path('api/users/', include('users.urls')),
   path('api/artworks/', include('artworks.urls')),
+  path('api/stream/', include('livestream.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
