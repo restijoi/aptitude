@@ -1,0 +1,27 @@
+// -webkit-font-smoothing: antialiased;
+//     moz-osx-font-smoothing: grayscale;
+//     font: normal normal 16px/150% 'Lato-Regular', 'Helvetica', sans-serif;
+
+
+
+@font-face {
+  font-family: 'avenir-book';
+  src: url(../../fonts/avenir/AvenirLTStd-Book.otf);
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  moz-osx-font-smoothing: grayscale
+}
+@font-face {
+  font-family: 'avenir-roman';
+  src: url(../../fonts/avenir/AvenirLTStd-Roman.otf);
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  moz-osx-font-smoothing: grayscale
+}
+@font-face {
+  font-family: 'avenir-medium';
+  src: url(../../fonts/avenir/AvenirLTStd-Medium.otf);
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  moz-osx-font-smoothing: grayscale
+}

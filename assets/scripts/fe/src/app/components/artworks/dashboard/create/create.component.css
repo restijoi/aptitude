@@ -1,0 +1,13 @@
+.featured-dropzone {
+  height: 35rem;
+  justify-content: center;
+}
+
+.featured-dropzone-content {
+  height: inherit !important;
+}
+
+.featured-dropzone img {
+  width: fit-content !important; 
+  opacity: 1 !important;
+}
