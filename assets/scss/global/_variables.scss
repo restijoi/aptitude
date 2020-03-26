@@ -1,0 +1,37 @@
+//typography variables
+$Text-book: 'avenir-book';
+
+
+//Primary colors
+
+$white: #ffffff;
+$grey: #70797e;
+$primary:#48e5a3;
+$primary-text:#858a93;
+
+// Mood Colors
+
+// $success: #45e0aa;
+// $danger: #e04551;
+// $warning: #ffde52;
+// $info: #4a73fa;
+
+
+//secondary colors
+$dark-blue: #151d3e;
+$charcoal: #3f434b;
+$off-white:#f8f8f8;
+
+
+//font-sizes:
+$basefont: 16;
+$h1: #{36 / $basefont}rem;
+$h2: #{30 / $basefont}rem;
+$h3: #{24 / $basefont}rem;
+$h4: #{20 / $basefont}rem;
+$h5: #{18 / $basefont}rem;
+$h6: #{16 / $basefont}rem;
+$paragraph: #{14 / $basefont}rem;
+$small: #{12 / $basefont}rem;
+
+

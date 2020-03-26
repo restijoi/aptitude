@@ -1,0 +1,93 @@
+html,
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font: normal normal 100%/120% $Text-book;
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        &:focus {
+            box-shadow: none !important;
+
+        }
+    }
+}
+
+.blur {
+    background-color: #1a202c26;
+    backdrop-filter: blur(8.7px);
+}
+.gradient {
+    background-image: linear-gradient(to bottom, #833ab4, #dd97c7 48%, #ffbaa5);
+}
+
+
+ //typography
+ h1,
+ .h1 {
+     font-size: $h1;
+ }
+
+ h2,
+ .h2 {
+     font-size: $h2;
+     letter-spacing: -0.24px;
+      line-height: 1.21;
+ }
+
+ h3,
+ .h3 {
+     font-size: $h3;
+     letter-spacing: -0.5px;
+      line-height: 1.21;
+ }
+
+ h4,
+ .h4 {
+     font-size: $h4;
+     letter-spacing: -0.24px;
+      line-height: 1.21;
+ }
+
+ h5,
+ .h5 {
+     font-size: $h5;
+     letter-spacing: -0.24px;
+ }
+
+ h6,
+ .h6 {
+     font-size: $h6;
+     letter-spacing: -0.24px;
+ }
+
+ p {
+     font-size: $paragraph;
+     letter-spacing: 0.003rem;
+     line-height: 1.75;
+     margin-bottom: 5px;
+    letter-spacing: -0.4px;
+ }
+
+ label {
+     font-size:$paragraph;
+ }
+
+ small, .small {
+     font-size: $small;
+ }
+
+ a {
+     text-decoration: none;
+
+     &:hover {
+         text-decoration: none;
+     }
+
+     &.link-icon {
+         img {
+             width: 35px;
+         }
+     }
+ }

@@ -13,15 +13,20 @@ export class ArtWorkForm {
   constructor(data) {
       // Initialize the form builder
       this.artworkForm = new FormBuilder().group({
-          featured_image: new FormControl(null, [Validators.required]),
+          // featured_image: new FormControl(null, [Validators.required]),
           title: new FormControl(null, [Validators.required]),
           description: new FormControl(null),
           image: new FormControl(null),
           is_free: new FormControl(true),
-          price: new FormControl({value: null, disabled: true})
+          price: new FormControl(null)
       });
   }
 
+  get isFree():any { return this.artworkForm.get('is_free'); }
+
+  get price():any { 
+    return this.artworkForm.get('price');
+  }
   // check if form field is valid
   valid(f: any) {
       return !(!this.artworkForm.get(f).valid && this.artworkForm.get(f).touched);

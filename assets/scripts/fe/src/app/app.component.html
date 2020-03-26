@@ -1,8 +1,9 @@
-<main>
-  <ui-view name="navigation"></ui-view>
+<main class="container px-10 xl:px-0 mx-auto relative">
+  <ui-view name="navigation" class="w-full"></ui-view>
   <div class="container-fluid">
     <div class="row">
-      <ui-view name="side"></ui-view>
+      <ui-view name="side">
+      </ui-view>
       <ui-view name="content"></ui-view>
     </div>
   </div>

@@ -1,3 +1,4 @@
+import { UsersModule } from './components/users/users.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -22,7 +23,8 @@ import { DashboardModule } from './components/artworks/dashboard/dashboard.modul
     UIRouterModule.forRoot(APP_STATES),
 
     PublicModule,
-    DashboardModule
+    DashboardModule,
+    UsersModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenService, multi: true }
